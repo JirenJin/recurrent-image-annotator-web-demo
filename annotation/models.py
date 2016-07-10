@@ -14,7 +14,7 @@ class Image(models.Model):
 class Label(models.Model):
     """Each label corresponds to multiple annotations."""
     # maximum length of english word is 45.
-    label = model.CharField(max_length=50)
+    label = models.CharField(max_length=50)
 
     def __unicode__(self):
         return label
