@@ -1,6 +1,10 @@
 # customize
 *.ipynb
 *.ipynb_checkpoints
+*.swp
+
+# OSX Finder turds
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
