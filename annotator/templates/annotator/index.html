@@ -35,10 +35,13 @@
                 <img class="img-responsive" src="http://placehold.it/600x400" alt="drag image area">
             </div>
             <div class="col-md-3">
-                <h4>here will be the predicted labels</h4>
+                <h3>here will be the predicted labels</h3>
+                {% for label in annotation %}
+                    <li><h4>{{label}}</h4></li>
+                {% endfor %}
             </div>
             <div class="col-md-3">
-                <h4>here will be the place for you to correct annotations</h4>
+                <h3>here will be the place for you to correct annotations</h3>
             </div>
         </div>
     </div>

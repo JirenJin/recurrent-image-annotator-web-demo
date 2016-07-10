@@ -3,4 +3,9 @@ from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return render(request, 'annotator/index.html')
+    # add some fake data to be displayed
+    annotation = ["bird", "sea", "sky", "cloud"]
+    context = {
+            'annotation': annotation,
+            }
+    return render(request, 'annotator/index.html', context)
