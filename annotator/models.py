@@ -33,7 +33,19 @@ class Annotation(models.Model):
     # use 'image' instead of Django's default 'image_id' for ForeignKey,
     # since we directly use 'image' as the primary key 
     image = models.ForeignKey(Image, on_delete=models.CASCADE, db_column='image')
-    labels = models.ManyToManyField(Label)
+    # use 'Assign' as an intermediate model
+    labels = models.ManyToManyField(Label, through='Assign')
 
     def __unicode__(self):
         return " ".join(l.label for l in self.labels.all())
+
+
+class Assign(models.Model):
+    """Assign a label to an annotation result of an image."""
+    annotation = models.ForeignKey(Label, on_delete=models.CASCADE,
+            db_column='annotation')
+    label = models.ForeignKey(Annotation, on_delete=models.CASCADE,
+            db_column='label')
+
+    class Meta:
+        db_table = 'label_link_annotation'
