@@ -7,7 +7,7 @@ class Image(models.Model):
     """Each image contains multiple annotations."""
     # we need rename images after uploading
     # to ensure that image_path length is less than the maximum
-    image_path = models.CharField(max_length=200)
+    image_path = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
         return self.image_path 
@@ -16,7 +16,7 @@ class Image(models.Model):
 class Label(models.Model):
     """Each label corresponds to multiple annotations."""
     # maximum length of english word is 45.
-    label = models.CharField(max_length=50)
+    label = models.CharField(max_length=50, primary_key=True)
 
     def __unicode__(self):
         return self.label
@@ -35,6 +35,3 @@ class Annotation(models.Model):
 
     def __unicode__(self):
         return self.labels
-
-
-
