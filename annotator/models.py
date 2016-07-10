@@ -43,9 +43,9 @@ class Annotation(models.Model):
 class Assign(models.Model):
     """Assign a label to an annotation result of an image."""
     annotation = models.ForeignKey(Label, on_delete=models.CASCADE,
-            db_column='annotation')
-    label = models.ForeignKey(Annotation, on_delete=models.CASCADE,
             db_column='label')
+    label = models.ForeignKey(Annotation, on_delete=models.CASCADE,
+            db_column='annotation')
 
     class Meta:
-        db_table = 'label_link_annotation'
+        db_table = Image._meta.app_label + '_label_link_annotation'
