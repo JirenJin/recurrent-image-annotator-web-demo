@@ -10,7 +10,7 @@ class Image(models.Model):
     image_path = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
-        return self.image_path 
+        return "%s" % self.image_path 
 
 
 class Label(models.Model):
@@ -19,7 +19,7 @@ class Label(models.Model):
     label = models.CharField(max_length=50, primary_key=True)
 
     def __unicode__(self):
-        return self.label
+        return "%s" % self.label
 
 
 class Annotation(models.Model):
@@ -34,4 +34,4 @@ class Annotation(models.Model):
     labels = models.ManyToManyField(Label)
 
     def __unicode__(self):
-        return self.labels
+        return " ".join(l.label for l in self.labels.all())
