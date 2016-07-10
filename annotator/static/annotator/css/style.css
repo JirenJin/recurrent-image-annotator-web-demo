@@ -1,3 +1,28 @@
+/*body {
+    background: #FFD6BA !important;
+}
+*/
+html {
+    background: #74AFAD;
+}
+
+.top {
+    background: #74AFAD;
+}
+
+.bottom {
+    background: #74AFAD;
+}
+
+.center {
+    background: #ECECEA;
+}
+
 .logo-image {
     padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.upload-image {
+    padding-bottom:20px;
 }
