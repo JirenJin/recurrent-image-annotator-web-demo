@@ -37,7 +37,7 @@ class Annotation(models.Model):
     labels = models.ManyToManyField(Label, through='Assign')
 
     def __unicode__(self):
-        return " ".join(l.label for l in self.labels.all())
+        return "%d(id), " % self.id + " ".join(l.label for l in self.labels.all())
 
 
 class Assign(models.Model):
@@ -46,6 +46,9 @@ class Assign(models.Model):
             db_column='label')
     annotation = models.ForeignKey(Annotation, on_delete=models.CASCADE,
             db_column='annotation')
+
+    def __unicode__(self):
+        return "%s is assigned to annotation_%d" % (self.label, self.annotation.id)
 
     class Meta:
         db_table = Image._meta.app_label + '_label_link_annotation'
