@@ -10,7 +10,7 @@ class Image(models.Model):
     image = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
-        return "%s" % self.image_path 
+        return "%s" % self.image
 
 
 class Label(models.Model):
