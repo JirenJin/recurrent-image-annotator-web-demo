@@ -7,7 +7,7 @@ class Image(models.Model):
     """Each image contains multiple annotations."""
     # we need rename images after uploading
     # to ensure that image_path length is less than the maximum
-    image_path = models.CharField(max_length=200, primary_key=True)
+    image = models.CharField(max_length=200, primary_key=True)
 
     def __unicode__(self):
         return "%s" % self.image_path 
@@ -15,7 +15,7 @@ class Image(models.Model):
 
 class Label(models.Model):
     """Each label corresponds to multiple annotations."""
-    # maximum length of english word is 45.
+    # maximum length of english word is 45
     label = models.CharField(max_length=50, primary_key=True)
 
     def __unicode__(self):
@@ -30,7 +30,9 @@ class Annotation(models.Model):
     # whether the annotation is predicted by RIA model
     # or annotated or corrected by humans
     is_predicted = models.BooleanField()
-    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    # use 'image' instead of Django's default 'image_id' for ForeignKey,
+    # since we directly use 'image' as the primary key 
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, db_column='image')
     labels = models.ManyToManyField(Label)
 
     def __unicode__(self):
