@@ -10,14 +10,16 @@ class Image(models.Model):
     image_path = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return image_path 
+        return self.image_path 
+
+
 class Label(models.Model):
     """Each label corresponds to multiple annotations."""
     # maximum length of english word is 45.
     label = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return label
+        return self.label
 
 
 class Annotation(models.Model):
@@ -32,7 +34,7 @@ class Annotation(models.Model):
     labels = models.ManyToManyField(Label)
 
     def __unicode__(self):
-        return labels
+        return self.labels
 
 
 
