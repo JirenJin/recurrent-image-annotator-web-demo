@@ -6,6 +6,11 @@ html {
     background: #74AFAD;
 }
 
+body {
+    font-family: 'Lato', sans-serif; 
+    font-weight: 300;
+}
+
 .top {
     background: #74AFAD;
 }
@@ -18,6 +23,12 @@ html {
     background: #ECECEA;
 }
 
+.horizontal {
+    height: 3px;
+    color: #558C89;
+    background-color: #558C89;
+}
+
 .logo-image {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -25,4 +36,30 @@ html {
 
 .upload-image {
     padding-bottom:20px;
+}
+
+.title {
+    color: #FFFFFF;
+    font-weight: 300;
+    font-size: 60px;
+}
+
+.author {
+    color: #FFFFFF;
+    font-weight: 300;
+}
+
+.instruction {
+    color: #5D737E;
+    font-weight: 300;
+}
+
+.footer {
+    padding-top: 10px;
+    color: #FFFFFF;
+    font-weight: 400;
+}
+
+.footer a {
+    color: #23527c;
 }
