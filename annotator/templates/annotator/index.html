@@ -42,11 +42,9 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <!--
-                <h2 class="text-center instruction">Upload or drag the image you want to annotate here</h2>
-                -->
 				<div class="upload-image" id="dropzone">
-                    <form action="/file-upload" class="dropzone needsclick dz-clickable" id="image-upload">
+                    <form action="{% url 'annotator:index' %}" class="dropzone needsclick dz-clickable" id="image-upload">
+                        {% csrf_token %}
                         <div class="dz-message needsclick">
                             Drop images here or click to upload.<br>
                             <span class="note needsclick">(You can choose whether to allow us store your image or not.)</span>
