@@ -57,6 +57,11 @@ body {
     font-weight: 300;
 }
 
+.prompt {
+    padding-top: 30px;
+    color: #5D737E;
+}
+
 .footer {
     padding-top: 10px;
     color: #FFFFFF;
