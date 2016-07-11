@@ -35,7 +35,10 @@ body {
 }
 
 .upload-image {
-    padding-bottom:20px;
+    margin-bottom: 3rem; 
+    margin-top: 3rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .title {
@@ -62,4 +65,27 @@ body {
 
 .footer a {
     color: #23527c;
+}
+
+
+.dropzone { 
+    border: 2px dashed #0087F7; 
+    border-radius: 5px; 
+    background: white; 
+}
+
+.dropzone .dz-message { 
+    font-weight: 400; 
+    font-size: 2em; 
+} 
+
+.dropzone .dz-message .note { 
+    font-size: 1.8em; 
+    font-weight: 200; 
+    display: block; 
+    margin-top: 1.4rem; 
+}
+
+.dropzone .dz-preview {
+    min-height: 400px;
 }
