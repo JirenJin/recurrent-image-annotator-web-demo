@@ -1,7 +1,9 @@
-/*body {
-    background: #FFD6BA !important;
+@media only screen and (max-device-width: 768px) {
+    .container {
+        width: 100%;
+    }
 }
-*/
+
 html {
     background: #74AFAD;
 }
