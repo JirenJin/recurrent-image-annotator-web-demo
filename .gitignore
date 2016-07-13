@@ -2,6 +2,7 @@
 *.ipynb
 *.ipynb_checkpoints
 *.swp
+*.model
 
 # OSX Finder turds
 .DS_Store
