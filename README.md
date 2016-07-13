@@ -16,3 +16,8 @@ sudo apt-get install postgresql postgresql-contrib
 sudo apt-get install libpq-dev python-dev
 pip install psycopg2
 ```
+
+# Start ipc server
+```bash
+python ipc_server.py
+```
