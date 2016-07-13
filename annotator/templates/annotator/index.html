@@ -12,7 +12,6 @@
     <link rel="icon" type="image/x-icon" href={% static 'annotator/favicon.ico' %}>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="{% static 'annotator/js/dropzone.js' %}"></script>
     <title>Recurrent Image Annotator</title>
 </head>
 <body>
@@ -51,6 +50,7 @@
                             <span class="note needsclick">(You can choose whether to allow us store your image or not.)</span>
                         </div>
                     </form>
+                    <script src="{% static 'annotator/js/dropzone.js' %}"></script>
                 </div>
             </div>
             <div class="col-md-3">
