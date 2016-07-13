@@ -41,7 +41,7 @@ class VGGNet(chainer.Chain):
         """
         # set volatile to "on", then the computation history will not be stored 
         # we only need forward computation for deploying the trained model
-        x.volatile = 'off'
+        x.volatile = 'on'
 
         h = F.relu(self.conv1_1(x))
         h = F.relu(self.conv1_2(h))
@@ -86,11 +86,14 @@ class RIA(chainer.Chain):
         self.lstm.reset_state()
 
     def initialize_state(self, image_features):
-        image_features = image_features
+        # no training
+        image_features.volatile="on"
         h = self.image_embedding(image_features)
         self.lstm.h = h
 
     def __call__(self, label_input):
+        # no training
+        label_input.volatile="on"
         x = self.embed(label_input)
         h = self.lstm(x)
         y = F.relu(self.fc1(h))
