@@ -8,13 +8,17 @@ from RIA import VGGNet, RIA
 
 
 # load pretrained VGG and RIA models
-vgg = VGGNet()
-chainer.serializers.load_hdf5('VGG.model', vgg)
-vgg.to_gpu()
+def load_models():
+    """Load both trained VGG and RIA models"""
+    vgg = VGGNet()
+    chainer.serializers.load_hdf5('VGG.model', vgg)
+    vgg.to_gpu()
 
-ria = RIA()
-chainer.serializers.load_npz('RIA.model', ria)
-ria.to_gpu()
+    ria = RIA()
+    chainer.serializers.load_npz('RIA.model', ria)
+    ria.to_gpu()
+    return vgg, ria
+
 
 def get_image_features(image_path):
     """Load an image and extract the image features.""" 
@@ -29,6 +33,7 @@ def get_image_features(image_path):
     img = chainer.cuda.cupy.asarray(img, dtype=np.float32)
     image_features = vgg(img)
     return image_features
+
 
 def predict(image_path):
     """Predict the multi-label annotation for the given image.
@@ -77,11 +82,15 @@ def predict(image_path):
     return annotation
 
 
-# label dictionary
-with open('dictionary.json') as f:
-    dictionary = json.load(f)
 
 # simple test
 if __name__ == "__main__":
+    # load trained models
+    vgg, ria = load_models()
+
+    # label dictionary
+    with open('dictionary.json') as f:
+        dictionary = json.load(f)
+
     annotation = predict('cat.jpg')
     print " ".join(annotation)
