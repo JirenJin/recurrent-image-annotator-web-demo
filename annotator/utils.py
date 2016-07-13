@@ -1,5 +1,6 @@
 import datetime
 
+import ipc
 from .models import Image, Label, Annotation, Assign
 
 
@@ -24,6 +25,7 @@ def handle_uploaded_file(f):
     return result
 
 def predict(image):
-    # fake function
-    annotation = ['dog', 'cat', 'grass', 'human']
+    server_address = ('localhost', 5795)
+    with ipc.Client(server_address) as client:
+        annotation = client.send(image)
     return annotation
