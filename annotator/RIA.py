@@ -1,5 +1,4 @@
 import chainer
-from chainer import Variable
 import chainer.links as L
 import chainer.functions as F
 
@@ -39,10 +38,6 @@ class VGGNet(chainer.Chain):
         """Forward pass computation, without saving computation history.
         return: 4096 dimension image features (fc7 features)
         """
-        # set volatile to "on", then the computation history will not be stored 
-        # we only need forward computation for deploying the trained model
-        x.volatile = 'on'
-
         h = F.relu(self.conv1_1(x))
         h = F.relu(self.conv1_2(h))
         h = F.max_pooling_2d(h, 2, stride=2)
@@ -66,13 +61,18 @@ class VGGNet(chainer.Chain):
         h = F.relu(self.conv5_3(h))
         h = F.max_pooling_2d(h, 2, stride=2)
 
-        h = F.dropout(F.relu(self.fc6(h)), train=self.train, ratio=0.5)
-        h = F.dropout(F.relu(self.fc7(h)), train=self.train, ratio=0.5)
+        h = F.dropout(F.relu(self.fc6(h)), train=False, ratio=0.5)
+        h = F.dropout(F.relu(self.fc7(h)), train=False, ratio=0.5)
         # we only need the fc7 layer's output, i.e., 4096-D features
         return h
 
 
 class RIA(chainer.Chain):
+    """Recurrent Image Annotator.
+
+    Predict arbitrary length of annotation according to the contents of images.
+    """
+
     def __init__(self):
         super(RIA, self).__init__(
             embed=L.EmbedID(261, 512),
@@ -86,14 +86,10 @@ class RIA(chainer.Chain):
         self.lstm.reset_state()
 
     def initialize_state(self, image_features):
-        # no training
-        image_features.volatile="on"
         h = self.image_embedding(image_features)
         self.lstm.h = h
 
     def __call__(self, label_input):
-        # no training
-        label_input.volatile="on"
         x = self.embed(label_input)
         h = self.lstm(x)
         y = F.relu(self.fc1(h))
