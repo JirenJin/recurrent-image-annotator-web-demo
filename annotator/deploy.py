@@ -20,7 +20,7 @@ def load_models():
     return vgg, ria
 
 
-def get_image_features(image_path):
+def get_image_features(image_path, vgg):
     """Load an image and extract the image features.""" 
     # training images pixel mean
     mean = np.array([103.939, 116.779, 123.68])
@@ -35,14 +35,14 @@ def get_image_features(image_path):
     return image_features
 
 
-def predict(image_path):
+def predict(image_path, vgg, ria, dictionary):
     """Predict the multi-label annotation for the given image.
     To-do:
         implement beam-search for better result, however, this may casue more
         computation time.
     """
     # load image
-    image_features = get_image_features(image_path)
+    image_features = get_image_features(image_path, vgg)
     # initialize hidden state
     ria.reset_state()
     ria.initialize_state(image_features)
@@ -92,5 +92,5 @@ if __name__ == "__main__":
     with open('dictionary.json') as f:
         dictionary = json.load(f)
 
-    annotation = predict('cat.jpg')
+    annotation = predict('cat.jpg', vgg, ria, dictionary)
     print " ".join(annotation)
