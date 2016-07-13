@@ -70,3 +70,29 @@ class VGGNet(chainer.Chain):
         h = F.dropout(F.relu(self.fc7(h)), train=self.train, ratio=0.5)
         # we only need the fc7 layer's output, i.e., 4096-D features
         return h
+
+
+class RIA(chainer.Chain):
+    def __init__(self):
+        super(RIA, self).__init__(
+            embed=L.EmbedID(261, 512),
+            lstm=L.LSTM(512, 512, forget_bias_init=1.0),
+            fc1=L.Linear(512, 512),
+            fc2=L.Linear(512, 261),
+            image_embedding = L.Linear(4096, 512),
+        )
+
+    def reset_state(self):
+        self.lstm.reset_state()
+
+    def initialize_state(self, image_features):
+        image_features = image_features
+        h = self.image_embedding(image_features)
+        self.lstm.h = h
+
+    def __call__(self, label_input):
+        x = self.embed(label_input)
+        h = self.lstm(x)
+        y = F.relu(self.fc1(h))
+        logit = self.fc2(y)
+        return logit
