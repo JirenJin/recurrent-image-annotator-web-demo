@@ -35,7 +35,7 @@ class VGGNet(chainer.Chain):
             fc8=L.Linear(4096, 1000)
         )
 
-    def __call__(self, x, t):
+    def __call__(self, x):
         """Forward pass computation, without saving computation history.
         return: 4096 dimension image features (fc7 features)
         """
