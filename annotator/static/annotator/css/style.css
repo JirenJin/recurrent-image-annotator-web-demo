@@ -9,7 +9,7 @@ html {
 }
 
 body {
-    font-family: 'Lato', sans-serif; 
+    font-family: 'Lato', sans-serif;
     font-weight: 300;
 }
 
@@ -34,10 +34,11 @@ body {
 .logo-image {
     padding-top: 20px;
     padding-bottom: 20px;
+    width: 170px;
 }
 
 .upload-image {
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
     margin-top: 3rem;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -75,21 +76,20 @@ body {
 }
 
 
-.dropzone { 
-    border: 2px dashed #0087F7; 
-    border-radius: 5px; 
-    background: white; 
+.dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
 }
 
-.dropzone .dz-message { 
-    font-weight: 400; 
-    font-size: 2em; 
-} 
-
-.dropzone .dz-message .note { 
-    font-size: 1.8em; 
-    font-weight: 200; 
-    display: block; 
-    margin-top: 1.4rem; 
+.dropzone .dz-message {
+    font-weight: 400;
+    font-size: 2em;
 }
 
+.dropzone .dz-message .note {
+    font-size: 1.8em;
+    font-weight: 200;
+    display: block;
+    margin-top: 1.4rem;
+}
