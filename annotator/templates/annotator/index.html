@@ -62,12 +62,17 @@
                     <script src="{% static 'annotator/js/dropzone.js' %}"></script>
                 </div>
             </div>
-            <div class="col-md-3" id="annotation-result">
-                <h3 class="prompt", id="prompt">Automatic annotation result:</h3>
+            <div class="col-md-6">
+              <div class="row prompt" id="prompt">
+                <div class="col-md-12">
+                    <h3>Automatic annotation result:</h3>
+                </div>
+              </div>
+              <div class="row text-center" id="result">
+              <!--Empty, waiting for result-->
+              </div>
             </div>
-            <div class="col-md-3">
-                <h3 class="prompt">here will be the place for you to correct annotations</h3>
-            </div>
+
         </div>
     </div>
 </div>
@@ -87,11 +92,10 @@
 Dropzone.options.imageUpload = {
   init: function(){
     this.on("success", function(file, response){
-      var template = '<li><h3>%label%</h3></li>';
-      // first, we need to remove the previous annotation
-      $('#prompt').siblings().remove();
+      var template = '<div class="col-md-6"><h3 class="result">%label%</h3></div>';
+      $('#result').children().remove();
       response.forEach(function(label) {
-        $('#prompt').after(template.replace('%label%', label));
+        $('#result').append(template.replace('%label%', label));
       });
     });
   }
@@ -112,10 +116,10 @@ Dropzone.options.imageUpload = {
       }
     })
       .success(function(response){
-        var template = '<li><h3>%label%</h3></li>';
-        $('#prompt').siblings().remove();
+        var template = '<div class="col-md-6"><h3 class="result">%label%</h3></div>';
+        $('#result').children().remove();
         response.forEach(function(label) {
-          $('#prompt').after(template.replace('%label%', label));
+          $('#result').append(template.replace('%label%', label));
         });
       });
   });

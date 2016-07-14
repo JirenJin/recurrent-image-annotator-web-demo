@@ -65,6 +65,11 @@ body {
     color: #5D737E;
 }
 
+.result {
+    font-size: 40px;
+    color: #558C89;
+}
+
 .footer {
     padding-top: 10px;
     color: #FFFFFF;
