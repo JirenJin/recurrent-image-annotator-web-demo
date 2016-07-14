@@ -77,15 +77,18 @@ body {
 
 
 .dropzone {
-    border: 2px dashed #0087F7;
+    border: 2px dashed #558C89;
     border-radius: 5px;
-    background: white;
+    background: #ECECEA;
 }
 
 .dropzone .dz-message {
     font-weight: 400;
     font-size: 2em;
 }
+
+.dropzone .dz-preview.dz-image-preview {
+  background: #ECECEA; }
 
 .dropzone .dz-message .note {
     font-size: 1.8em;
