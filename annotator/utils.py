@@ -16,7 +16,8 @@ def handle_uploaded_file(f):
     image = Image.objects.create(image=file_name)
     annotation = Annotation.objects.create(image=image, is_predicted=True)
     # get prediction result
-    result = predict(file_name)
+    # important here to modify the image_path(file_name)
+    result = predict('../'+file_name)
     # add label objects, and assign labels to annotation 
     for word in result:
         label, created = Label.objects.get_or_create(label=word)
@@ -24,8 +25,10 @@ def handle_uploaded_file(f):
                 label=label)
     return result
 
-def predict(image):
+def predict(image_path):
+    """Send image_path to ipc_server which is running forever for providing
+    annotation results."""
     server_address = ('localhost', 5795)
     with ipc.Client(server_address) as client:
-        annotation = client.send(image)
-    return annotation
+        result = client.send(image_path)
+    return result

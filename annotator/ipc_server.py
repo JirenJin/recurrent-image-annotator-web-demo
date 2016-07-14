@@ -4,10 +4,10 @@ import ipc
 import deploy
 
 
-def server_process_request(image):
+def server_process_request(image_path):
     try:
         # note that we have to explicitly pass the params to predict function
-        annotation = deploy.predict(image, vgg, ria, dictionary)
+        annotation = deploy.predict(image_path, vgg, ria, dictionary)
     except KeyError:
         annotation = []
     return annotation 
