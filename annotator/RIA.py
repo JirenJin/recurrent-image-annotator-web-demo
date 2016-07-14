@@ -75,11 +75,11 @@ class RIA(chainer.Chain):
 
     def __init__(self):
         super(RIA, self).__init__(
-            embed=L.EmbedID(261, 512),
-            lstm=L.LSTM(512, 512, forget_bias_init=1.0),
-            fc1=L.Linear(512, 512),
-            fc2=L.Linear(512, 261),
-            image_embedding = L.Linear(4096, 512),
+            embed=L.EmbedID(261, 1024),
+            lstm=L.LSTM(1024, 1024, forget_bias_init=1.0),
+            fc1=L.Linear(1024, 1024),
+            fc2=L.Linear(1024, 261),
+            image_embedding = L.Linear(4096, 1024),
         )
 
     def reset_state(self):
