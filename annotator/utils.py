@@ -1,23 +1,16 @@
-import datetime
-
 import ipc
 from .models import Image, Label, Annotation, Assign
 
 
-def handle_uploaded_file(f):
-    image_ext = f.name.split('.')[1]
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
-    file_path = 'annotator/uploaded_images/'
-    file_name = file_path + timestamp + '.' + image_ext
-    with open(file_name, 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
+def handle_uploaded_file(image_path):
     # database operation
-    image = Image.objects.create(image=file_name)
+    image, created = Image.objects.get_or_create(image=image_path)
     annotation = Annotation.objects.create(image=image, is_predicted=True)
     # get prediction result
-    # important here to modify the image_path(file_name)
-    result = predict('../'+file_name)
+    # important here to modify the image_path
+    # note that the ipc server is running in 'annotator' directory instead of
+    # the main project directory
+    result = predict('../' + image_path)
     # add label objects, and assign labels to annotation 
     for word in result:
         label, created = Label.objects.get_or_create(label=word)
