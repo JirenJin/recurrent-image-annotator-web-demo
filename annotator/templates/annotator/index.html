@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewpoint" content="width=device-width initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    {% load staticfiles %}
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet">
+    {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'annotator/css/dropzone.css' %}">
     <link rel="stylesheet" href="{% static 'annotator/css/style.css' %}">
     <link rel="icon" type="image/x-icon" href={% static 'annotator/favicon.ico' %}>
@@ -64,9 +64,6 @@
             </div>
             <div class="col-md-3" id="annotation-result">
                 <h3 class="prompt", id="prompt">Automatic annotation result:</h3>
-                {% for label in annotation %}
-                    <li><h4>{{label}}</h4></li>
-                {% endfor %}
             </div>
             <div class="col-md-3">
                 <h3 class="prompt">here will be the place for you to correct annotations</h3>
@@ -103,9 +100,7 @@ Dropzone.options.imageUpload = {
 <script>
   // annotate the image when it's clicked
   $('.title-image').click(function(){
-    console.log($(this).context.src);
     var imagePath = $(this).context.src.match(/annotator.*/)[0];
-    console.log(imagePath);
 
     $.ajax({
       url: "/image_clicked",
@@ -117,7 +112,6 @@ Dropzone.options.imageUpload = {
       }
     })
       .success(function(response){
-        console.log('success');
         var template = '<li><h3>%label%</h3></li>';
         $('#prompt').siblings().remove();
         response.forEach(function(label) {
