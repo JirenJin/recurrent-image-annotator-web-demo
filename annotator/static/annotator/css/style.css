@@ -22,8 +22,8 @@ body {
 
 .horizontal {
     height: 3px;
-    color: #558C89;
-    background-color: #558C89;
+    color: #457B9D;
+    background-color: #457B9D;
 }
 
 .logo-image {
@@ -65,7 +65,7 @@ body {
 }
 
 .label {
-    color: #558C89;
+    color: #457B9D;
 }
 
 .label h3 {
@@ -79,12 +79,12 @@ body {
 }
 
 .footer a {
-    color: #23527c;
+    color: #F1FAEE;
 }
 
 
 .dropzone {
-    border: 2px dashed #558C89;
+    border: 2px dashed #457B9D;
     border-radius: 5px;
     background: #ECECEA;
 }
