@@ -15,6 +15,16 @@
     <title>Recurrent Image Annotator</title>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
 <div class="container-fluid top">
     <div class="container">
         <div class="row">
@@ -25,8 +35,16 @@
                 <h1 class="title">Recurrent Image Annotator</h1>
                 <h3 class="author">Jiren Jin</h3>
                 <!-- Place this tag where you want the button to render. -->
-                <a class="github-button" href="https://github.com/jinjiren/recurrent-image-annotator-web-demo" data-icon="octicon-star" data-style="mega" aria-label="Star jinjiren/recurrent-image-annotator-web-demo on GitHub">Star</a>
+                <div style='float:right;'>
+                    <div class="fb-share-button" data-href="http://www.nlab.ci.i.u-tokyo.ac.jp/annotator" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.nlab.ci.i.u-tokyo.ac.jp%2Fannotator&amp;src=sdkpreparse">Share</a></div>
+                </div>
+                <div style='float:right;'>
                     <a href="https://twitter.com/share" class="twitter-share-button" data-via="JirenJin" data-size="large">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div>
+                <div style='float:right;'>
+                    <a class="github-button" href="https://github.com/jinjiren/recurrent-image-annotator-web-demo" data-icon="octicon-star" data-style="mega" aria-label="Star jinjiren/recurrent-image-annotator-web-demo on GitHub">Star</a>
+                </div>
+                <div style='clear:both;'></div>
             </div>
         </div>
     </div>
@@ -46,7 +64,7 @@
                 <img class="img-responsive title-image" src="{% static 'annotator/image/tokyo.jpg' %}" alt="example image">
             </div>
             <div class="col-xs-6 col-md-3">
-                <img class="img-responsive title-image" src="{% static 'annotator/image/dog_cat.jpg' %}" alt="example image">
+                <img class="img-responsive title-image" src="{% static 'annotator/image/cat.jpg' %}" alt="example image">
             </div>
             <div class="col-xs-6 col-md-3">
                 <img class="img-responsive title-image" src="{% static 'annotator/image/sakura.jpg' %}" alt="example image">
