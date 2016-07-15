@@ -66,6 +66,10 @@ body {
 }
 
 .result {
+    min-height: 200px;
+}
+
+.label {
     font-size: 40px;
     color: #558C89;
 }
