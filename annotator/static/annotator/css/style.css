@@ -143,4 +143,9 @@ body {
         display: block;
         margin-top: 20px;
     }
+
+    .footer {
+        font-size: 40px;
+        padding-bottom: 15px;
+    }
 }
