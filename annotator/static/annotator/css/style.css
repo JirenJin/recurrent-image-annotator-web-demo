@@ -70,8 +70,11 @@ body {
 }
 
 .label {
-    font-size: 40px;
     color: #558C89;
+}
+
+.label h3{
+    font-size: 40px;
 }
 
 .footer {
