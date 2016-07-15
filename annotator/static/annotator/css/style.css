@@ -1,5 +1,5 @@
 html {
-    background: #74AFAD;
+    background: #0d46a1;
 }
 
 body {
@@ -8,11 +8,12 @@ body {
 }
 
 .top {
-    background: #74AFAD;
+    background: #0d46a1;
+    /*#74AFAD*/
 }
 
 .bottom {
-    background: #74AFAD;
+    background: #0d46a1;
 }
 
 .center {
