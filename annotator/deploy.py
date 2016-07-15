@@ -78,7 +78,8 @@ def predict(image_path, vgg, ria, dictionary):
         i += 1
 
     # annotation with multiple label word
-    annotation = [dictionary[int(pred)] for pred in preds]
+    # note that pred itself is 1-index, however, dictionary is 0-index
+    annotation = [dictionary[int(pred-1)] for pred in preds]
     return annotation
 
 
