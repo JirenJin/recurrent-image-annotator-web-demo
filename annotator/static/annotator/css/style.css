@@ -1,8 +1,3 @@
-@media (max-device-width: 768px) {
-    .container {
-        width: 100%;
-    }
-}
 
 html {
     background: #74AFAD;
@@ -66,14 +61,14 @@ body {
 }
 
 .result {
-    min-height: 200px;
+    min-height: 300px;
 }
 
 .label {
     color: #558C89;
 }
 
-.label h3{
+.label h3 {
     font-size: 40px;
 }
 
@@ -103,8 +98,49 @@ body {
   background: #ECECEA; }
 
 .dropzone .dz-message .note {
-    font-size: 1.8em;
-    font-weight: 200;
+    font-size: 40px;
+    font-weight: 100;
     display: block;
     margin-top: 1.4rem;
+}
+
+
+@media (max-device-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .prompt {
+        padding-top: 10px;
+    }
+
+    .prompt h2{
+        font-size: 50px;
+    }
+
+    .label h3{
+        font-size: 60px;
+    }
+
+    .upload-image {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        padding-top: 20px;
+        padding-bottom: 0px;
+    }
+
+    .dropzone {
+    }
+
+    .dropzone .dz-message {
+        font-size: 50px;
+        margin: 10px;
+    }
+
+    .dropzone .dz-message .note {
+        font-size: 40px;
+        font-weight: 300;
+        display: block;
+        margin-top: 20px;
+    }
 }
