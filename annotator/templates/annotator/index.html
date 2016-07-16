@@ -138,7 +138,7 @@ Dropzone.options.imageUpload = {
     var imagePath = $(this).context.src.match(/annotator.*/)[0];
 
     $.ajax({
-      url: "/annotator/image_clicked",
+      url: "{% url 'annotator:image_clicked' %}",
       type: "POST",
       dataType: "JSON",
       data: {
