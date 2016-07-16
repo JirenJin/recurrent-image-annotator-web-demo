@@ -32,6 +32,10 @@ body {
     width: 100%;
 }
 
+.sample-image{
+    cursor: pointer;
+}
+
 .upload-image {
     margin-bottom: 3rem;
     margin-top: 3rem;
