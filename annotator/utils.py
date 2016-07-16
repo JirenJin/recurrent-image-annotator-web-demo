@@ -5,7 +5,7 @@ from .models import Image, Label, Annotation, Assign
 def handle_uploaded_file(image_path):
     # database operation
     image, created = Image.objects.get_or_create(image=image_path)
-    annotation = Annotation.objects.create(image=image, is_predicted=True)
+    annotation, created = Annotation.objects.get_or_create(image=image, is_predicted=True)
     # get prediction result
     # important here to modify the image_path
     # note that the ipc server is running in 'annotator' directory instead of
