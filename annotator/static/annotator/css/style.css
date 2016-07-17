@@ -97,15 +97,15 @@ body {
 
 .dropzone .dz-message {
     font-weight: 400;
-    font-size: 2em;
+    font-size: 28px;
 }
 
 .dropzone .dz-preview.dz-image-preview {
   background: #ECECEA; }
 
 .dropzone .dz-message .note {
-    font-size: 40px;
-    font-weight: 100;
+    font-size: 25px;
+    font-weight: 300;
     display: block;
     margin-top: 1.4rem;
 }
