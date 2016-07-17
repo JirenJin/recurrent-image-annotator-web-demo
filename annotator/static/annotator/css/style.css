@@ -30,6 +30,7 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
     width: 100%;
+    cursor: pointer;
 }
 
 .sample-image{
