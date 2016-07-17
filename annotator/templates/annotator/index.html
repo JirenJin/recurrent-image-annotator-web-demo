@@ -64,18 +64,11 @@
             </div>
         </div>
         <div class="row">
+            {% for sample_image_path in sample_image_paths %}
             <div class="col-xs-6 col-md-3">
-                <img class="img-responsive sample-image" src="{% static 'annotator/image/sun.jpg' %}" alt="example image">
+                <img class="img-responsive sample-image" src="{% static sample_image_path %}" alt="example image">
             </div>
-            <div class="col-xs-6 col-md-3">
-                <img class="img-responsive sample-image" src="{% static 'annotator/image/tokyo.jpg' %}" alt="example image">
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <img class="img-responsive sample-image" src="{% static 'annotator/image/ILSVRC2012_val_00000153.JPEG' %}" alt="example image">
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <img class="img-responsive sample-image" src="{% static 'annotator/image/ILSVRC2012_val_00000122.JPEG' %}" alt="example image">
-            </div>
+            {% endfor %}
         </div>
         <div class="row">
             <div class="col-md-6">

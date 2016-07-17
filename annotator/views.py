@@ -1,4 +1,6 @@
-import datetime
+import os
+import datetime 
+import random
 
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -25,7 +27,25 @@ def index(request):
             return JsonResponse(result, safe=False)
     else:
         form = UploadFileForm()
-    return render(request, 'annotator/index.html')
+        context = {}
+        num_sample_image = 4
+        # this view will be called from the site main directory
+        if random.choice([0,1]) == 0:
+            parent_dicrectory = "static/annotator/iaprtc12/landscapes/"
+            image_list = random.sample(os.listdir(parent_dicrectory),
+                                       num_sample_image)
+            # this path will be used in Django `static` template tag, thus we omit
+            # 'annotator/static/'
+            sample_image_paths = ['annotator/iaprtc12/landscapes/' + image_name 
+                                  for image_name in image_list]
+        else:
+            parent_dicrectory = "static/annotator/iaprtc12/portraits/"
+            image_list = random.sample(os.listdir(parent_dicrectory),
+                                       num_sample_image)
+            sample_image_paths = ['annotator/iaprtc12/portraits/' + image_name 
+                                  for image_name in image_list]
+        context['sample_image_paths'] = sample_image_paths
+    return render(request, 'annotator/index.html', context)
 
 
 def image_clicked(request):
