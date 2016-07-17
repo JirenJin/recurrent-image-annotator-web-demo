@@ -24,4 +24,6 @@ def predict(image_path):
     server_address = ('localhost', 5795)
     with ipc.Client(server_address) as client:
         result = client.send(image_path)
+        # avoid duplicate labels in rare cases
+        result = list(set(result))
     return result
