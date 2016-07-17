@@ -2,3 +2,4 @@ uploaded_images/*.*
 /*.jpg
 /*.png
 *.bak
+static/annotator/iaprtc12/**
