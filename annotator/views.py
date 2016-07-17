@@ -30,20 +30,22 @@ def index(request):
         context = {}
         num_sample_image = 4
         # this view will be called from the site main directory
-        if random.choice([0,1]) == 0:
-            parent_dicrectory = "static/annotator/iaprtc12/landscapes/"
-            image_list = random.sample(os.listdir(parent_dicrectory),
-                                       num_sample_image)
-            # this path will be used in Django `static` template tag, thus we omit
-            # 'annotator/static/'
-            sample_image_paths = ['annotator/iaprtc12/landscapes/' + image_name 
-                                  for image_name in image_list]
+        parent_dicrectory = "annotator/static/annotator/iaprtc12/"
+        rand = random.choice(range(4))
+        if rand == 0:
+            parent_dicrectory += "h320/"
+        elif rand == 1:
+            parent_dicrectory += "h360/"
+        elif rand == 2:
+            parent_dicrectory += "w320/"
         else:
-            parent_dicrectory = "static/annotator/iaprtc12/portraits/"
-            image_list = random.sample(os.listdir(parent_dicrectory),
-                                       num_sample_image)
-            sample_image_paths = ['annotator/iaprtc12/portraits/' + image_name 
-                                  for image_name in image_list]
+            parent_dicrectory += "w360/"
+        image_list = random.sample(os.listdir(parent_dicrectory),
+                                   num_sample_image)
+        # this path will be used in Django `static` template tag, thus we omit
+        # 'annotator/static/'
+        sample_image_paths = [parent_dicrectory.replace('annotator/static/', '') + image_name 
+                              for image_name in image_list]
         context['sample_image_paths'] = sample_image_paths
     return render(request, 'annotator/index.html', context)
 
