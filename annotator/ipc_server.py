@@ -16,11 +16,13 @@ def server_process_request(image_path):
 if __name__ == '__main__':
     server_address = ('localhost', 5795)
 
-    print 'Start loading models and dictionary, please wait for about 10 seconds'
-    vgg, ria = deploy.load_models();
+    dataset = 'iaprtc12'
 
-    with open('dictionary.json') as f:
+    print 'Start loading models and dictionary, please wait for about 10 seconds'
+    with open(dataset + '_dictionary.json') as f:
         dictionary = json.load(f)
+
+    vgg, ria = deploy.load_models(iaprtc12 + '_RIA.model', len(dictionary), 1024, 1024)
 
     print 'Model Loading completed'
     print 'Ready for annotating'
