@@ -8,14 +8,14 @@ from RIA import VGGNet, RIA
 
 
 # load pretrained VGG and RIA models
-def load_models():
+def load_models(ria_model_path, vocabulary_size, input_dim, hidden_dim):
     """Load both trained VGG and RIA models"""
     vgg = VGGNet()
     chainer.serializers.load_hdf5('VGG.model', vgg)
     vgg.to_gpu()
 
-    ria = RIA()
-    chainer.serializers.load_npz('RIA.model', ria)
+    ria = RIA(vocabulary_size, input_dim, hidden_dim)
+    chainer.serializers.load_npz(ria_model_path, ria)
     ria.to_gpu()
     return vgg, ria
 
@@ -57,7 +57,7 @@ def predict(image_path, vgg, ria, dictionary):
     # list of predicted labels
     preds = []
     # maximum length for annotation
-    max_length = 5
+    max_length = 20
 
     # continue predicting until STOP signal (also 0) is predicted
     # or the number of predicted labels exceeds the maximum
@@ -86,12 +86,15 @@ def predict(image_path, vgg, ria, dictionary):
 
 # simple test
 if __name__ == "__main__":
-    # load trained models
-    vgg, ria = load_models()
-
+    dataset = 'iaprtc12'
     # label dictionary
-    with open('dictionary.json') as f:
+    with open(dataset + '_dictionary.json') as f:
         dictionary = json.load(f)
+
+    # load trained models
+    vgg, ria = load_models(dataset + '_RIA.model', len(dictionary), 1024, 1024)
+    vgg.train = False
+    ria.train = False
 
     annotation = predict('cat.jpg', vgg, ria, dictionary)
     print " ".join(annotation)
