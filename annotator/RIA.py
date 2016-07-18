@@ -33,6 +33,7 @@ class VGGNet(chainer.Chain):
             fc7=L.Linear(4096, 4096),
             fc8=L.Linear(4096, 1000)
         )
+        self.train=False
 
     def __call__(self, x):
         """Forward pass computation, without saving computation history.
@@ -61,8 +62,8 @@ class VGGNet(chainer.Chain):
         h = F.relu(self.conv5_3(h))
         h = F.max_pooling_2d(h, 2, stride=2)
 
-        h = F.dropout(F.relu(self.fc6(h)), train=False, ratio=0.5)
-        h = F.dropout(F.relu(self.fc7(h)), train=False, ratio=0.5)
+        h = F.dropout(F.relu(self.fc6(h)), train=self.train, ratio=0.5)
+        h = F.dropout(F.relu(self.fc7(h)), train=self.train, ratio=0.5)
         # we only need the fc7 layer's output, i.e., 4096-D features
         return h
 
@@ -73,14 +74,15 @@ class RIA(chainer.Chain):
     Predict arbitrary length of annotation according to the contents of images.
     """
 
-    def __init__(self):
+    def __init__(self, vocabulary_size, input_dim, hidden_dim):
         super(RIA, self).__init__(
-            embed=L.EmbedID(261, 1024),
-            lstm=L.LSTM(1024, 1024, forget_bias_init=1.0),
-            fc1=L.Linear(1024, 1024),
-            fc2=L.Linear(1024, 261),
-            image_embedding = L.Linear(4096, 1024),
+            embed=L.EmbedID(vocabulary_size + 1, input_dim),
+            lstm=L.LSTM(input_dim, hidden_dim, forget_bias_init=1.0),
+            fc1=L.Linear(hidden_dim, hidden_dim),
+            fc2=L.Linear(hidden_dim, vocabulary_size + 1),
+            image_embedding = L.Linear(4096, hidden_dim),
         )
+        self.train=False
 
     def reset_state(self):
         self.lstm.reset_state()
@@ -93,5 +95,6 @@ class RIA(chainer.Chain):
         x = self.embed(label_input)
         h = self.lstm(x)
         y = F.relu(self.fc1(h))
-        logit = self.fc2(y)
-        return logit
+        y = F.dropout(y, train=self.train, ratio=0.5)
+        y = self.fc2(y)
+        return y
