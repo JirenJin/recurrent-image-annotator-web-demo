@@ -22,7 +22,7 @@ if __name__ == '__main__':
     with open(dataset + '_dictionary.json') as f:
         dictionary = json.load(f)
 
-    vgg, ria = deploy.load_models(iaprtc12 + '_RIA.model', len(dictionary), 1024, 1024)
+    vgg, ria = deploy.load_models(dataset + '_RIA.model', len(dictionary), 1024, 1024)
 
     print 'Model Loading completed'
     print 'Ready for annotating'
