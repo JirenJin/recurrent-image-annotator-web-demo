@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     dataset = 'iaprtc12'
 
-    print 'Start loading models and dictionary, please wait for about 10 seconds'
+    print 'Start loading models and dictionary, please wait for about 30 seconds'
     with open(dataset + '_dictionary.json') as f:
         dictionary = json.load(f)
 
