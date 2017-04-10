@@ -12,10 +12,10 @@ def load_models(ria_model_path, vocabulary_size, input_dim, hidden_dim):
     """Load both trained VGG and RIA models"""
     vgg = VGGNet()
     chainer.serializers.load_hdf5('VGG.model', vgg)
-    #vgg.to_gpu(0)
+    vgg.to_gpu(1)
     ria = RIA(vocabulary_size, input_dim, hidden_dim) 
     chainer.serializers.load_npz(ria_model_path, ria)
-    #ria.to_gpu(0)
+    ria.to_gpu(1)
     return vgg, ria
 
 
@@ -29,7 +29,9 @@ def get_image_features(image_path, vgg):
     img = cv2.resize(img, (224, 224)).transpose((2, 0, 1))
     # input for VGGNet should be [1, 3, 224, 224]
     img = img[np.newaxis, :, :, :]
-    image_features = vgg(img)
+    with chainer.cuda.cupy.cuda.Device(1):
+        img = chainer.cuda.cupy.asarray(img, dtype=np.float32)
+        image_features = vgg(img)
     return image_features
 
 
@@ -45,39 +47,40 @@ def predict(image_path, vgg, ria, dictionary):
     ria.reset_state()
     ria.initialize_state(image_features)
     # START signal, here it's [0] with shape (1,)
-    label_init = np.zeros([1], dtype=np.int32)
-    # output has shape (1,dictionary_size + 1) 
-    output = ria(label_init)
-    # so pred has shape (1,1)
-    pred = output.data.argmax(1)
-    # number of predicted labels
-    i = 0
-    # list of predicted labels
-    preds = []
-    # maximum length for annotation
-    max_length = 20
-
-    # continue predicting until STOP signal (also 0) is predicted
-    # or the number of predicted labels exceeds the maximum
-    # here 5 is the maximum limit for Corel5k dataset
-    # however, it is OK to not set this in practice
-    # since all the training examples have annotation length less than 5,
-    # the learned model probably only learned how to predict labels within this
-    # limit
-    # thus later I prefer to replace the current model with another one that
-    # trained on another dataset that has more number of labels, 
-    # e.g., IAPRTC-12
-    while(pred[0] != 0 and i < max_length):
-        preds.append(pred[0])
-        # use the previous predicted label as the next input to RIA model
-        label_input = pred.astype(np.int32)
-        output = ria(label_input)
+    with chainer.cuda.cupy.cuda.Device(1):
+        label_init = chainer.cuda.cupy.zeros([1], dtype=np.int32)
+        # output has shape (1,dictionary_size + 1) 
+        output = ria(label_init)
+        # so pred has shape (1,1)
         pred = output.data.argmax(1)
-        i += 1
+        # number of predicted labels
+        i = 0
+        # list of predicted labels
+        preds = []
+        # maximum length for annotation
+        max_length = 20
 
-    # annotation with multiple label word
-    # note that pred itself is 1-index, however, dictionary is 0-index
-    annotation = [dictionary[int(pred-1)] for pred in preds]
+        # continue predicting until STOP signal (also 0) is predicted
+        # or the number of predicted labels exceeds the maximum
+        # here 5 is the maximum limit for Corel5k dataset
+        # however, it is OK to not set this in practice
+        # since all the training examples have annotation length less than 5,
+        # the learned model probably only learned how to predict labels within this
+        # limit
+        # thus later I prefer to replace the current model with another one that
+        # trained on another dataset that has more number of labels, 
+        # e.g., IAPRTC-12
+        while(pred[0] != 0 and i < max_length):
+            preds.append(pred[0])
+            # use the previous predicted label as the next input to RIA model
+            label_input = pred.astype(np.int32)
+            output = ria(label_input)
+            pred = output.data.argmax(1)
+            i += 1
+
+        # annotation with multiple label word
+        # note that pred itself is 1-index, however, dictionary is 0-index
+        annotation = [dictionary[int(pred-1)] for pred in preds]
     return annotation
 
 
