@@ -12,16 +12,16 @@ def load_models(ria_model_path, vocabulary_size, input_dim, hidden_dim):
     """Load both trained VGG and RIA models"""
     vgg = VGGNet()
     chainer.serializers.load_hdf5('VGG.model', vgg)
-    vgg.to_gpu()
+    # vgg.to_gpu()
 
     ria = RIA(vocabulary_size, input_dim, hidden_dim)
     chainer.serializers.load_npz(ria_model_path, ria)
-    ria.to_gpu()
+    # ria.to_gpu()
     return vgg, ria
 
 
 def get_image_features(image_path, vgg):
-    """Load an image and extract the image features.""" 
+    """Load an image and extract the image features."""
     # training images pixel mean
     mean = np.array([103.939, 116.779, 123.68])
     img = cv2.imread(image_path).astype(np.float32)
@@ -30,7 +30,7 @@ def get_image_features(image_path, vgg):
     img = cv2.resize(img, (224, 224)).transpose((2, 0, 1))
     # input for VGGNet should be [1, 3, 224, 224]
     img = img[np.newaxis, :, :, :]
-    img = chainer.cuda.cupy.asarray(img, dtype=np.float32)
+    # img = chainer.cuda.cupy.asarray(img, dtype=np.float32)
     image_features = vgg(img)
     return image_features
 
@@ -47,8 +47,9 @@ def predict(image_path, vgg, ria, dictionary):
     ria.reset_state()
     ria.initialize_state(image_features)
     # START signal, here it's [0] with shape (1,)
-    label_init = chainer.cuda.cupy.zeros([1], dtype=np.int32)
-    # output has shape (1,dictionary_size + 1) 
+    # label_init = chainer.cuda.cupy.zeros([1], dtype=np.int32)
+    label_init = np.zeros([1], dtype=np.int32)
+    # output has shape (1,dictionary_size + 1)
     output = ria(label_init)
     # so pred has shape (1,1)
     pred = output.data.argmax(1)
@@ -67,7 +68,7 @@ def predict(image_path, vgg, ria, dictionary):
     # the learned model probably only learned how to predict labels within this
     # limit
     # thus later I prefer to replace the current model with another one that
-    # trained on another dataset that has more number of labels, 
+    # trained on another dataset that has more number of labels,
     # e.g., IAPRTC-12
     while(pred[0] != 0 and i < max_length):
         preds.append(pred[0])
