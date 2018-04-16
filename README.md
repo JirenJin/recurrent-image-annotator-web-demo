@@ -15,6 +15,8 @@ sudo apt-get install postgresql postgresql-contrib
 # for ubuntu
 sudo apt-get install libpq-dev python-dev
 pip install psycopg2
+sudo apt-get install apache2-mpm-worker
+sudo apt-get install apache2-threaded-dev
 ```
 
 # Start ipc server
