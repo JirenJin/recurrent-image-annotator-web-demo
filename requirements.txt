@@ -1,3 +1,5 @@
-chainer==1.11.0
 Django==1.9.7
-numpy==1.11.0
+chainer==1.11.0
+numpy==1.16.2
+psycopg2==2.7.7
+mod-wsgi=4.6.5
